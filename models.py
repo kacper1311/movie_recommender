@@ -83,6 +83,43 @@ class User:
         self.user_ratings = {}
         self.user_watch_history = []
         self.load_ratings()
+        
+    def save_user_data(self):
+        try:
+            user_data = {
+                "user_id": self.user_id,
+                "user_name": self.user_name,
+                "ratings": self.user_ratings,
+                "watch_history": self.user_watch_history
+            }
+
+            with open("user_data.json","w") as f:
+                json.dump(user_data, f)
+                
+            print("Zapisano dane.")
+        except TypeError as e:
+            print(f"Błąd podczas serializacji danych do JSON: {e}")
+        except Exception as e:
+            print(f"Nieoczekiwany błąd: {e}")
+
+    def load_user_data(self):
+        try:
+            with open("user_data.json","r") as f:
+                user_data = json.load(f)
+            
+            self.user_id = user_data["user_id"]
+            self.user_name = user_data["user_name"]
+            self.user_ratings = user_data["ratings"]
+            self.user_watch_history = user_data["watch_history"]
+        except FileNotFoundError:
+            print(f"Plik nie istnieje: {'user_data.json'}")
+            return None
+        except json.JSONDecodeError as e:
+            print(f"Błąd podczas dekodowania JSON: {e}")
+            return None
+        except Exception as e:
+            print(f"Nieoczekiwany błąd: {e}")
+            return None
 
     def rate_movie(self, movie_id):
         try:
@@ -102,43 +139,25 @@ class User:
             return f"Oceniłeś juz ten film. Twoja ocena to: {self.user_ratings[movie_id]}"
         else: 
             return "Film nie został jeszcze przez ciebie oceniony."
-
-    def save_user_data(self):
+        
+    def load_ratings(self):
+        self.load_user_data()
+        print(self.user_ratings)
+        
+    def add_to_history(self, movie_id):
         try:
-            user_data = {
-                "user_id": self.user_id,
-                "user_name": self.user_name,
-                "ratings": self.user_ratings,
-                "watch_history": self.user_watch_history
-            }
-
-            with open("user_data.json","w") as f:
-                json.dump(user_data, f)
-                
-            print("Zapisano dane.")
+            
+            if movie_id not in self.user_watch_history:
+                self.user_watch_history.append(movie_id)
+                self.save_user_data()
+                print("Dodano film do historii oglądania.")
+            else:
+                print("Taki film jest juz w historii oglądania.")
         except TypeError as e:
             print(f"Błąd podczas serializacji danych do JSON: {e}")
         except Exception as e:
             print(f"Nieoczekiwany błąd: {e}")
 
-    def load_ratings(self):
-        try:
-            with open("user_data.json","r") as f:
-                user_data = json.load(f)
-            
-            self.user_id = user_data["user_id"]
-            self.user_name = user_data["user_name"]
-            self.user_ratings = user_data["ratings"]
-            self.user_watch_history = user_data["watch_history"]
-            
-            print(self.user_ratings)
-        except FileNotFoundError:
-            print(f"Plik nie istnieje: {'user_data.json'}")
-            return None
-        except json.JSONDecodeError as e:
-            print(f"Błąd podczas dekodowania JSON: {e}")
-            return None
-        except Exception as e:
-            print(f"Nieoczekiwany błąd: {e}")
-            return None
-
+    def load_watch_history(self):
+        self.load_user_data()
+        print(self.user_watch_history)
