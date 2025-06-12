@@ -69,3 +69,16 @@ def runtime(id):
         return result['runtime']
     else:
         return 0
+    
+def movie_for_id(query):
+    endpoint = f"/search/movie/{id}"  # Endpoint do wyszukiwania filmów
+    params = {"query": query}  # Parametr wyszukiwania
+    
+    # Pobranie wyników z API
+    results = call_api(endpoint, params)
+    
+    # Ekstrakcja listy filmów z odpowiedzi
+    if results and 'results' in results:
+        return results['results']
+    else:
+        return []

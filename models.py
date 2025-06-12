@@ -8,6 +8,7 @@ Zawiera:
 - Metody do zapisywania i wczytywania danych
 """
 from api import runtime
+from api import movie_for_id
 import json
 
 GENRE_MAPPING = {
@@ -42,7 +43,7 @@ class Movie:
         self.genres = genres
 
     def __str__(self):
-        return f"film: {self.title} ({self.year}), średnia ocena: {self.avg_rating}, gatunek: {self.genres}, czas trwania: {self.runtime}"
+        return f"{self.title} ({self.year}): \n-ID filmu: {self.movie_id} n-Średnia ocena: {self.avg_rating if self.avg_rating else "Brak ocen"} \n-Gatunek: {self.genres if self.genres else "Nie przypisano"} \n-Czas trwania: {self.runtime} minut\n"
 
     def __repr__(self):
         return f"Movie({self.movie_id}, '{self.title}', {self.year}, {self.avg_rating}, '{self.runtime}', '{self.genres}')"
@@ -160,4 +161,14 @@ class User:
 
     def load_watch_history(self):
         self.load_user_data()
-        print(self.user_watch_history)
+        print("\nLista obejrzanych filmów:\n")   
+        
+        if not self.user_watch_history:
+            print("Nie ma jeszcze filmów w historii oglądania.")
+            return 
+        
+        for i, movie_id in enumerate(self.user_watch_history, 1):        
+            movies = movie_for_id(movie_id)
+            movie = Movie.from_api_data(movies)
+            
+            print(f"{i}. {movie}")

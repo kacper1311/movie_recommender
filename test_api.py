@@ -10,7 +10,7 @@ if movies:
 """ 
 
 
-"""
+
 def test_api():
     user_movie = input("Podaj nazwę jakiegoś filmu: ")
     
@@ -31,7 +31,7 @@ def test_api():
 
 if __name__ == "__main__":
     test_api()    
-"""
+
 
 def test_movie_creation():
     # 1. Wyszukaj film
