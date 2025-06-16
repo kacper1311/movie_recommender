@@ -70,15 +70,16 @@ def runtime(id):
     else:
         return 0
     
-def movie_for_id(query):
-    endpoint = f"/search/movie/{id}"  # Endpoint do wyszukiwania filmów
-    params = {"query": query}  # Parametr wyszukiwania
+def movie_for_id(id):
+    from models import Movie
+    endpoint = f"/movie/{id}"  # Endpoint do wyszukiwania filmów
     
     # Pobranie wyników z API
-    results = call_api(endpoint, params)
+    results = call_api(endpoint, params={})
     
     # Ekstrakcja listy filmów z odpowiedzi
-    if results and 'results' in results:
-        return results['results']
+    if results and 'id' in results:
+            movie = Movie.from_api_data(results)
+            return movie
     else:
-        return []
+        return None
