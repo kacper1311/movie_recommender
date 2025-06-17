@@ -8,16 +8,6 @@ import requests
 from config import API_KEY, BASE_URL, LANGUAGE
 
 def call_api(endpoint, params=None):
-    """
-    Wysyła zapytanie do API TMDb i zwraca przetworzone dane.
-    
-    Args:
-        endpoint: ścieżka API (np. "/search/movie")
-        params: dodatkowe parametry zapytania
-    
-    Returns:
-        Dane z API lub None w przypadku błędu
-    """
     # Inicjalizacja parametrów
     if params is None:
         params = {}
@@ -39,15 +29,6 @@ def call_api(endpoint, params=None):
         return None
     
 def search_movies(query):
-    """
-    Wyszukuje filmy zawierające podany tytuł.
-    
-    Args:
-        query: szukany tytuł filmu
-    
-    Returns:
-        Lista pasujących filmów lub pusta lista
-    """
     endpoint = "/search/movie"  # Endpoint do wyszukiwania filmów
     params = {"query": query}  # Parametr wyszukiwania
     
