@@ -87,7 +87,6 @@ class User:
         self.user_name = user_name
         self.user_ratings = {}
         self.user_watch_history = []
-        self.load_ratings()
         
     def save_user_data(self):
         try:
@@ -127,17 +126,21 @@ class User:
             return None
 
     def rate_movie(self, movie_id):
-        try:
-            user_rate = float(input("Podaj ocenę od 1 do 10: "))
+        if movie_id not in self.user_watch_history:
+            print("Najpierw dodaj ten film do historii oglądania!")
+            return
+        while True:
+            try:
+                user_rate = float(input("\nPodaj ocenę od 1 do 10: "))
 
-            if not (1 <= user_rate <= 10) :
-                print(f"Podaj ocene od 1 do 10. {user_rate} jest nieprawidłowe.")
-            else:
-                self.user_ratings[movie_id] = user_rate
-                self.save_user_data()
-                return f"Ocena {user_rate} została dodana."
-        except ValueError:
-            return "Nieprawidłowy znak, zeby ocenic wpisz cyfre."
+                if not (1 <= user_rate <= 10) :
+                    print(f"\nOcena {user_rate} jest nieprawidłowa.")
+                else:
+                    self.user_ratings[movie_id] = user_rate
+                    self.save_user_data()
+                    return f"\nOcena {user_rate} została dodana."
+            except ValueError:
+                return "\nNieprawidłowy znak, zeby ocenic wpisz cyfre."
 
     def get_rating(self, movie_id):
         if movie_id in self.user_ratings:
@@ -145,9 +148,19 @@ class User:
         else: 
             return "Film nie został jeszcze przez ciebie oceniony."
         
+        
     def load_ratings(self):
         self.load_user_data()
-        print(self.user_ratings)
+        print("\nTwoje oceny filmów:\n")
+        
+        if not self.user_ratings:
+            print("\nNie oceniono jeszcze zadnego filmu.")
+            
+        for i, rate_id in enumerate(self.user_ratings, 1):            
+            movie = movie_for_id(rate_id)
+            user_rating = self.user_ratings[rate_id]
+            print(f"{i}. {movie.title} ({movie.year}) - twoja ocena: {user_rating}/10 \nŚrednia ocena filmu to: {movie.avg_rating}\n")
+        
         
     def add_to_history(self, movie_id):
         try:
