@@ -7,11 +7,16 @@ Zawiera:
 - Inne stałe i ustawienia programu
 """
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 # Twój klucz API z TMDb (zastąp 'twój_klucz_api' swoim prawdziwym kluczem)
-API_KEY = "9dbb4fc371228f98aecbbdcd1f98636d"
+API_KEY = os.getenv("API_KEY")
 # Bazowy URL API
-BASE_URL = "https://api.themoviedb.org/3"
+BASE_URL = os.getenv("BASE_URL")
 # Język odpowiedzi (możesz ustawić 'pl' dla polskiego)
-LANGUAGE = "pl"
+LANGUAGE = os.getenv("LANGUAGE")
 # Ścieżka do zapisywania danych użytkownika
 USER_DATA_FILE = "user_data.json"

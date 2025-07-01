@@ -8,3 +8,16 @@ Odpowiada za:
 - Wykorzystanie generatorów i list składanych do filtrowania filmów
 - Implementację algorytmów rekomendacji
 """
+
+from models import User
+from main import MovieRecomenderApp
+
+app =  MovieRecomenderApp()
+
+favourite = []
+
+if app.user.user_ratings >= 7:
+    e
+    
+    
+
