@@ -348,7 +348,6 @@ class MovieRecomenderApp:
                     
             elif option == 2:
                 self.user.load_watch_history() # Wyświetla historię obejrzanych filmów.
-                # Brak break - program kontynuuje pętlę i wraca do menu głównego
                     
             elif option == 3:
                 self.handle_ratings_menu() # Wyświetla menu oceniania filmów.    
