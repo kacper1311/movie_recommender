@@ -1,84 +1,206 @@
-# System Rekomendacji Filmów
+# System Rekomendacji Filmów - Projekt Python
 
-## Wymagania Projektu
+## O Projekcie
 
-### 1. Opis projektu (5 pkt):
-- Temat projektu
-- Określenie celu projektu i oczekiwanych rezultatów
-- Opis funkcjonalności projektu
-- Krótka instrukcja uruchomienia projektu
-- Opis technologii użytych w projekcie
+### Co to jest?
+Stworzyłem system rekomendacji filmów, który pomaga użytkownikom znaleźć filmy, które mogą im się spodobać na podstawie ich wcześniejszych ocen. Program wykorzystuje API The Movie Database (TMDb) do pobierania informacji o filmach i implementuje algorytm rekomendacji oparty na preferencjach użytkownika.
 
-### 2. Analiza wymagań (5 pkt):
-- Spis wymagań funkcjonalnych i niefunkcjonalnych projektu
-- Określenie interfejsu użytkownika i funkcjonalności systemu
+### Dlaczego to zrobiłem?
+Projekt powstał jako zadanie z programowania w Pythonie, gdzie miałem zaimplementować różne koncepcje programistyczne takie jak:
+- Klasy i obiekty
+- Listy składane i generatory
+- Obsługa błędów i wyjątków
+- Praca z API zewnętrznym
+- Analiza danych z NumPy
+- Zapisywanie i wczytywanie danych JSON
 
-### 3. Implementacja (40 pkt): 
-- Użycie wybranej struktury danych (5 pkt)
-- Klasa i wyszukiwanie atrybutów w klasie (5 pkt)
-- Wykorzystanie API w projekcie
-- Organizacja kodu w modułach (5 pkt)
-- Wykorzystanie błędów i wyjątków (5 pkt)
-- Wykorzystanie generatorów i list składanych (5 pkt)
-- Zastosowanie wybranego elementu biblioteki standardowej (5 pkt)
-- Wykorzystanie jednego z frameworków służących do wykorzystania sztucznej inteligencji, np. TensorFlow, Numpy, Keras (5 pkt)
+## Jak to działa?
 
-### 4. Testowanie (5 pkt):
-- Implementacja testu jednostkowego
-- Opis wyników testów i ewentualne poprawki
+### Główne funkcjonalności:
 
-### 5. Wnioski (5 pkt)
-- Wnioski i możliwe usprawnienia projektu
+#### 1. **Wyszukiwanie filmów** 🔍
+- Możesz wyszukać dowolny film po nazwie
+- Program łączy się z TMDb API i pokazuje wyniki wyszukiwania
+- Dla każdego filmu wyświetla: tytuł, rok, gatunek, średnią ocenę, czas trwania
 
-## Cel projektu
-Zaimplementuj prosty system rekomendacji filmów dla użytkownika na podstawie ocen filmów, które obejrzał. System powinien korzystać z generatorów i list składanych do przetwarzania danych oraz wybranych elementów bibliotek standardowych do manipulacji danymi. Możesz także dodać wstęp do frameworku TensorFlow do analizy danych i generowania rekomendacji.
+#### 2. **Historia oglądania** 📺
+- Dodajesz filmy do swojej historii oglądania podając ich ID
+- Program zapisuje wszystkie obejrzane filmy w pliku JSON
+- Możesz przeglądać swoją historię oglądania
 
-## Wskazówki do samodzielnej implementacji
+#### 3. **System oceniania** ⭐
+- Oceniasz filmy z historii oglądania w skali 1-10
+- Program pokazuje tylko nieocenione filmy z historii
+- Możesz zmieniać oceny już ocenionych filmów
+- Wszystkie oceny są zapisywane automatycznie
 
-### Sugerowane kroki implementacji:
-1. **Planowanie projektu**:
-   - Zdefiniuj dokładnie, co będzie robił Twój system
-   - Zastanów się nad strukturą danych i modułów
-   - Wybierz odpowiednie API do pobierania danych o filmach (np. The Movie Database API)
+#### 4. **Algorytm rekomendacji** 🧠
+Program analizuje Twoje oceny i:
+- Oblicza Twoje ulubione gatunki na podstawie ocen
+- Generuje rekomendacje filmów z tych gatunków
+- Uwzględnia zarówno Twoje preferencje (70%) jak i oceny TMDb (30%)
+- Wyklucza filmy, które już oceniłeś
 
-2. **Tworzenie podstawowej struktury projektu**:
-   - Zorganizuj pliki i katalogi
-   - Zaplanuj moduły i ich zależności
+#### 5. **Filmy do ponownego obejrzenia** 🔄
+- Pokazuje filmy z Twoimi wysokimi ocenami (≥7/10)
+- Sortuje je według Twoich ocen (od najwyższej)
+- Idealne do przypomnienia sobie ulubionych filmów
 
-3. **Implementacja klas modelu**:
-   - Stwórz klasę reprezentującą film
-   - Stwórz klasę do przechowywania ocen użytkownika
+#### 6. **Statystyki użytkownika** 📊
+- Liczba ocenionych filmów
+- Średnia ocena i odchylenie standardowe
+- Ulubiony gatunek i top 3 gatunki
+- Liczba obejrzanych filmów
 
-4. **Integracja z API filmowym**:
-   - Zaimplementuj funkcje do pobierania danych z API
-   - Obsłuż możliwe błędy i wyjątki
+#### 7. **Wyszukiwanie podobnych filmów** 🔗
+- Podajesz ID filmu, który Ci się podobał
+- Program znajduje filmy z podobnymi gatunkami
+- Sortuje według podobieństwa gatunków i oceny TMDb
 
-5. **Algorytm rekomendacji**:
-   - Zaimplementuj prosty algorytm rekomendacji
-   - Wykorzystaj generatory i listy składane
-   - Użyj bibliotek Numpy/scikit-learn do analizy danych
+## Jak uruchomić projekt?
 
-6. **Interfejs użytkownika**:
-   - Stwórz prosty interfejs konsolowy
-   - Zaimplementuj menu z różnymi opcjami
+### Krok 1: Przygotowanie środowiska
+```bash
+# Utwórz środowisko wirtualne
+python -m venv venv
 
-7. **Testowanie**:
-   - Napisz testy jednostkowe
-   - Przeprowadź manualne testy funkcjonalne
+# Aktywuj środowisko
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
 
-### Jak efektywnie uczyć się z pomocą AI:
-1. **Zadawaj konkretne pytania** - np. "Jak zaimplementować pobieranie danych z API filmu w Pythonie?"
-2. **Proś o wyjaśnienie koncepcji** - np. "Wytłumacz mi jak działają generatory w Pythonie"
-3. **Pytaj o części, nie całość** - zamiast prosić o cały kod, pytaj o konkretne fragmenty
-4. **Analizuj sugestie** - nie kopiuj bezmyślnie kodu, staraj się zrozumieć każdą linijkę
-5. **Eksperymentuj** - modyfikuj sugerowane rozwiązania i obserwuj rezultaty
-6. **Dziel problem na mniejsze części** - implementuj projekt krok po kroku
+# Zainstaluj zależności
+pip install -r requirements.txt
+```
 
-### Przykładowe pytania, które możesz zadać:
-- "Jakie biblioteki w Pythonie najlepiej nadają się do komunikacji z API?"
-- "Jak stworzyć klasę w Pythonie z odpowiednimi atrybutami dla filmu?"
-- "W jaki sposób mogę użyć generatorów do filtrowania danych?"
-- "Jak zaimplementować podstawowy algorytm rekomendacji filmów?"
-- "Jakie testy jednostkowe powinienem napisać dla mojego systemu rekomendacji?"
+### Krok 2: Konfiguracja API
+1. Utwórz plik `.env` w głównym katalogu
+2. Dodaj swój klucz API z TMDb:
+```
+API_KEY=twój_klucz_api_z_tmdb
+BASE_URL=https://api.themoviedb.org/3
+LANGUAGE=pl
+```
 
-Powodzenia w implementacji projektu! Pamiętaj, że celem jest nie tylko działający program, ale również nauka programowania w Pythonie. 
+**Jak zdobyć klucz API?**
+1. Wejdź na https://www.themoviedb.org/
+2. Zarejestruj się i zaloguj
+3. Przejdź do Settings → API
+4. Złóż wniosek o klucz API
+5. Skopiuj klucz do pliku .env
+
+### Krok 3: Uruchomienie
+```bash
+python main.py
+```
+
+## Struktura projektu
+
+### Pliki główne:
+- **`main.py`** - Główny plik programu z interfejsem użytkownika
+- **`recommender.py`** - Algorytm rekomendacji filmów
+- **`models.py`** - Klasy Movie i User
+- **`api.py`** - Komunikacja z TMDb API
+- **`config.py`** - Konfiguracja i zmienne środowiskowe
+
+### Pliki pomocnicze:
+- **`test_api.py`** - Testy jednostkowe
+- **`requirements.txt`** - Zależności projektu
+- **`.env`** - Klucz API (nie commitowany)
+- **`user_data.json`** - Dane użytkownika
+
+## Szczegóły implementacji
+
+### Klasy i obiekty:
+- **Klasa `Movie`** - reprezentuje film z atrybutami: movie_id, title, year, avg_rating, runtime, genres
+- **Klasa `User`** - reprezentuje użytkownika z: user_id, user_name, user_ratings, user_watch_history
+- **Klasa `MovieRecommender`** - algorytm rekomendacji z: user, genre_weights, favorite_genres
+
+### Listy składane i generatory:
+- Używam list składanych do filtrowania filmów i obliczania statystyk
+- Generatory do efektywnego przetwarzania danych użytkownika
+- Przykłady w `recommender.py` i `models.py`
+
+### Obsługa błędów:
+- Try/except dla komunikacji z API
+- Walidacja danych wejściowych
+- Obsługa błędów plików JSON
+- Komunikaty błędów dla użytkownika
+
+### Praca z API:
+- **`search_movies(query)`** - Wyszukuje filmy po nazwie
+- **`movie_for_id(id)`** - Pobiera szczegóły filmu po ID
+- **`runtime(id)`** - Pobiera czas trwania filmu
+
+### Analiza danych z NumPy:
+- Obliczanie średniej oceny i odchylenia standardowego
+- Analiza preferencji użytkownika
+- Statystyki gatunków filmowych
+
+## Algorytm rekomendacji - jak to działa?
+
+### 1. Analiza preferencji użytkownika:
+- Program analizuje wszystkie Twoje oceny
+- Dla każdego gatunku oblicza średnią ocenę
+- Sortuje gatunki według preferencji
+
+### 2. Generowanie rekomendacji:
+- Wybiera top 3 ulubione gatunki
+- Wyszukuje filmy z tych gatunków w TMDb
+- Wyklucza filmy już ocenione przez Ciebie
+- Oblicza wynik rekomendacji: 70% preferencje + 30% ocena TMDb
+
+### 3. Sortowanie wyników:
+- Sortuje filmy według wyniku rekomendacji
+- Zwraca top N rekomendacji
+
+## Bezpieczeństwo
+
+### Ochrona klucza API:
+- Klucz API jest przechowywany w pliku `.env`
+- Plik `.env` jest dodany do `.gitignore`
+- Program sprawdza czy klucz jest dostępny przy uruchomieniu
+
+### Walidacja danych:
+- Sprawdzanie poprawności ocen (1-10)
+- Walidacja ID filmów
+- Obsługa błędów API i plików
+
+## Testowanie
+
+### Uruchomienie testów:
+```bash
+python test_api.py
+```
+
+### Co testuję:
+- Komunikację z API TMDb
+- Tworzenie obiektów Movie
+- Funkcjonalność użytkownika
+- Algorytm rekomendacji
+
+## Możliwe rozszerzenia
+
+### Co mógłbym dodać w przyszłości:
+1. **Interfejs webowy** - Flask/Django
+2. **Baza danych** - SQLite/PostgreSQL
+3. **Więcej algorytmów** - Collaborative Filtering
+4. **Analiza sentymentu** - recenzje użytkowników
+5. **Grafika** - wykresy preferencji
+6. **Eksport danych** - CSV, Excel
+
+## Podsumowanie
+
+Stworzyłem kompletny system rekomendacji filmów, który:
+- ✅ Wykorzystuje wszystkie wymagane koncepcje programistyczne
+- ✅ Ma czytelny i intuicyjny interfejs
+- ✅ Obsługuje błędy i waliduje dane
+- ✅ Jest bezpieczny (klucz API w .env)
+- ✅ Ma testy jednostkowe
+- ✅ Jest dobrze udokumentowany
+
+Projekt spełnia wszystkie wymagania i pokazuje moje umiejętności programowania w Pythonie! 🚀
+
+---
+**Autor:** Kacper Jasyk

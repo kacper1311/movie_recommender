@@ -2,12 +2,24 @@
 Moduł komunikacji z API filmowym
 
 Zawiera funkcje do pobierania danych o filmach z The Movie Database API.
+Obsługuje wyszukiwanie filmów, pobieranie szczegółów i czasu trwania.
+Wykorzystuje klucz API z pliku konfiguracyjnego.
 """
 
 import requests
 from config import API_KEY, BASE_URL, LANGUAGE
 
 def call_api(endpoint, params=None):
+    """
+    Wykonuje zapytanie HTTP do API TMDb
+    
+    Args:
+        endpoint: Endpoint API do wywołania (np. "/search/movie")
+        params: Parametry zapytania jako słownik
+        
+    Returns:
+        dict: Odpowiedź z API jako słownik lub None w przypadku błędu
+    """
     # Inicjalizacja parametrów
     if params is None:
         params = {}
@@ -29,6 +41,15 @@ def call_api(endpoint, params=None):
         return None
     
 def search_movies(query):
+    """
+    Wyszukuje filmy na podstawie zapytania tekstowego
+    
+    Args:
+        query: Tekst do wyszukania (tytuł filmu)
+        
+    Returns:
+        list: Lista filmów pasujących do zapytania lub pusta lista
+    """
     endpoint = "/search/movie"  # Endpoint do wyszukiwania filmów
     params = {"query": query}  # Parametr wyszukiwania
     
@@ -42,6 +63,15 @@ def search_movies(query):
         return []
     
 def runtime(id):
+    """
+    Pobiera czas trwania filmu na podstawie jego ID
+    
+    Args:
+        id: ID filmu z TMDb
+        
+    Returns:
+        int: Czas trwania w minutach lub 0 w przypadku błędu
+    """
     endpoint = f"/movie/{id}"
     
     result = call_api(endpoint, params={})
@@ -52,13 +82,23 @@ def runtime(id):
         return 0
     
 def movie_for_id(id):
+    """
+    Pobiera pełne dane filmu na podstawie jego ID
+    Tworzy obiekt Movie z danych z API
+    
+    Args:
+        id: ID filmu z TMDb
+        
+    Returns:
+        Movie: Obiekt filmu lub None w przypadku błędu
+    """
     from models import Movie
-    endpoint = f"/movie/{id}"  # Endpoint do wyszukiwania filmów
+    endpoint = f"/movie/{id}"  # Endpoint do pobierania szczegółów filmu
     
     # Pobranie wyników z API
     results = call_api(endpoint, params={})
     
-    # Ekstrakcja listy filmów z odpowiedzi
+    # Ekstrakcja danych filmu i utworzenie obiektu
     if results and 'id' in results:
             movie = Movie.from_api_data(results)
             return movie

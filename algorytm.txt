@@ -1,7 +1,0 @@
-Rekomendacje mają być robione na podstawie najlepiej ocenianych filmów przez uzytkownika biorac pod uwage gatunki, ktore najczesiej oglada.
-
-Algorytm ma uwzgledniac oceny i historie ogladania.
-
-Czy rekomendujesz filmy z tych samych gatunków? - Tak
-Czy rekomendujesz filmy, które mają wysoką średnią ocenę w TMDb? - Tak
-Czy wykluczasz filmy, które użytkownik już widział? - Nie, chcialbym stworzyc oddzielna zakladke/sekcje obejrzyj ponownie albo wroc do tego co lubisz.
